@@ -110,6 +110,17 @@ class Anggotaapi extends CI_Controller
 			}
 		}
 	}
+
+	function downloadLaporan($id, $dateStart, $dateEnd)
+	{
+		$data['riwayat'] = $this->riwayat_model->getFilterRiwayat($id, $dateStart, $dateEnd);
+		$data['tgl_awal'] = $dateStart;
+		$data['tgl_akhir'] = $dateEnd;
+		$this->load->library('pdflib');
+		$this->pdflib->setFileName('Laporan_peminjaman.pdf');
+		$this->pdflib->setPaper('A4', 'landscape');
+		$this->pdflib->loadView('v_laporan', $data);
+	}
 }
 
 

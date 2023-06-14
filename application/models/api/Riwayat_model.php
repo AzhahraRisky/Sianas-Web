@@ -43,4 +43,20 @@ class Riwayat_model extends CI_Model
 			return false;
 		}
 	}
+
+	function getFilterRiwayat($id, $dateStart, $dateEnd)
+	{
+		$this->db->select(
+			'riwayat.*, anggota.nama as nama_anggota, anggota.subbag, mobil.nama as nama_sopir, mobil.jenis_mobil,
+			mobil.no_plat'
+		);
+		$this->db->from('riwayat');
+		$this->db->join('mobil', 'mobil.no_mobil = riwayat.no_mobil', 'left');
+		$this->db->join('anggota', 'anggota.no_anggota = riwayat.no_anggota', 'left');
+		$this->db->where('riwayat.no_anggota', $id);
+		$this->db->where('riwayat.tgl_digunakan >=', $dateStart);
+		$this->db->where('riwayat.tgl_digunakan <=', $dateEnd);
+		$this->db->order_by('no_pengajuan', 'desc');
+		return $this->db->get()->result();
+	}
 }
