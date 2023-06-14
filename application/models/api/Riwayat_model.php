@@ -33,4 +33,14 @@ class Riwayat_model extends CI_Model
 			return false;
 		}
 	}
+
+	function insert($data)
+	{
+		$insert = $this->db->insert('riwayat', $data);
+		if ($insert) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
