@@ -30,8 +30,8 @@ class Sopir_model extends CI_Model
 
     public function getAllServiceByTambah($id)
     {
-        $query = "SELECT m.jenis_mobil, m.no_mobil, m.no_plat from mobil m where m.no_mobil = $id";
-        return $this->db->query($query)->result_array();
+        $query = "SELECT jenis_mobil, no_mobil, no_plat from mobil  where no_mobil = $id";
+        return $this->db->query($query)->row_array();
     }
 
     public function tambahSopir()
@@ -115,8 +115,13 @@ class Sopir_model extends CI_Model
 
     public function sopirPerawatan($id)
     {
-        $query = "SELECT * from perawatan where no_sopir = $id";
+        $query = "SELECT * from perawatan where no_mobil = $id";
         return $this->db->query($query)->row_array();
+    }
+
+    public function getPerawatanById($no_perawatan)
+    {
+        return $this->db->get_where('perawatan', ['no_perawatan' => $no_perawatan])->row_array();
     }
 
     public function tambahPerawatanMobil()
@@ -130,5 +135,17 @@ class Sopir_model extends CI_Model
         ];
 
         $this->db->insert('perawatan', $data);
+    }
+
+    public function ubahPerawatan()
+    {
+        $data = [
+            "jenis_kendaraan" => $this->input->post('jenis_kendaraan', true),
+            "no_plat" => $this->input->post('no_plat', true),
+            "perawatan" => $this->input->post('perawatan', true),
+        ];
+
+        $this->db->where('no_perawatan', $this->input->post('no_perawatan'));
+        $this->db->update('perawatan', $data);
     }
 }

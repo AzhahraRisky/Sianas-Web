@@ -4,7 +4,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Perawatan Kendaraan</h1>
-        <a href="<?= base_url('perawatan/tambah') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
+        <a href="<?= base_url('sopir/tambahperawatan') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah</a>
     </div>
 
     <!-- Content Row -->
@@ -34,7 +34,7 @@
                                         <td class="text-center"><?= $perawatan['no_plat']; ?></td>
                                         <td class="text-center"><?= $perawatan['perawatan']; ?></td>
                                         <td>
-                                            <a href="<?= base_url(); ?>perawatan/ubah/<?= $perawatan['no_perawatan']; ?>" class="btn btn-success btn-sm"><i class="fa fa-pen"></i></a>
+                                            <a href="<?= base_url(); ?>sopir/ubahperawatan/<?= $perawatan['no_perawatan']; ?>" class="btn btn-success btn-sm"><i class="fa fa-pen"></i></a>
                                             <a href="<?= base_url(); ?>sopir/hapus/<?= $perawatan['no_perawatan']; ?>" onclick="return confirm('apakah anda yakin?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>

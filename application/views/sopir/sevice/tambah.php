@@ -47,7 +47,6 @@
                             <input type="file" class="form-control-file" id="surat" name="surat">
                         </div>
                     </div>
-                    <input type="text" name="no_sopir" value="<?= $nama['no_sopir'] ?>">
                     <input type="hidden" name="konfirmasi" value="Menunggu">
                     <input type="text" name="no_mobil" value="<?= $service['no_mobil'] ?>">
 

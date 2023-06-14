@@ -245,6 +245,30 @@ class Sopir extends CI_Controller
         }
     }
 
+    public function ubahPerawatan($no_perawatan)
+    {
+        $data['session'] = $this->session->userdata('nama');
+		$id = $this->session->userdata('userid');
+		$data['nama'] = $this->db->get_where('admin', ['no_admin' => $id])->row_array();
+		$data['perawatan'] = $this->sopir->getPerawatanById($no_perawatan);
+
+		$this->form_validation->set_rules('jenis_kendaraan', 'Jenis Kendaraan', 'required');
+		$this->form_validation->set_rules('no_plat', 'No Plat', 'required');
+		$this->form_validation->set_rules('perawatan', 'Perawatan', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('sopir/template/header', $data);
+			$this->load->view('sopir/template/topbar', $data);
+			$this->load->view('sopir/perawatan/ubah', $data);
+			$this->load->view('sopir/template/footer', $data);
+		} else {
+
+			$data['perawatan'] = $this->sopir->ubahPerawatan();
+			$this->session->set_flashdata('success', 'Diubah!');
+			redirect('sopir/perawatan');
+		}
+    }
+
     public function service()
     {
         $data['session'] = $this->session->userdata('nama');
