@@ -38,6 +38,26 @@ class Mobil_model extends CI_Model
 			return  $this->db->get()->result();
 		}
 	}
+
+	function getMobilById($id)
+	{
+		$this->db->select('*');
+		$this->db->from('mobil');
+		$this->db->where('no_mobil', $id);
+		return $this->db->get()->row_array();
+	}
+	function update($id, $data)
+	{
+
+		$this->db->where('no_mobil', $id);
+		$update = $this->db->update('mobil', $data);
+
+		if ($update) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 
 /* End of file Mobil_model.php */
