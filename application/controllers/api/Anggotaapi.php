@@ -13,6 +13,7 @@ class Anggotaapi extends CI_Controller
 		$this->load->model('api/mobil_model');
 		$this->load->model('api/motor_model');
 		$this->load->model('api/riwayat_model');
+		$this->load->model('api/anggota_model');
 	}
 
 	function getMobilByStatus()
@@ -120,6 +121,39 @@ class Anggotaapi extends CI_Controller
 		$this->pdflib->setFileName('Laporan_peminjaman.pdf');
 		$this->pdflib->setPaper('A4', 'landscape');
 		$this->pdflib->loadView('v_laporan', $data);
+	}
+
+	function getMyProfile()
+	{
+		$id = $this->input->get('id');
+		echo json_encode($this->anggota_model->getUserById($id));
+	}
+
+	function updateProfile()
+	{
+		$id = $this->input->post('id');
+		$data = [
+			'subbag' => $this->input->post('subbag'),
+			'nama' => $this->input->post('nama'),
+			'nip' => $this->input->post('nip'),
+			'jabatan' => $this->input->post('jabatan'),
+			'no_hp' => $this->input->post('no_hp'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password')
+		];
+
+		$update = $this->anggota_model->update($id, $data);
+		if ($update == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
 	}
 }
 
