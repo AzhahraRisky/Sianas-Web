@@ -63,6 +63,45 @@ class Admin extends CI_Controller
 			echo json_encode($response);
 		}
 	}
+
+	function updateMotor()
+	{
+		$id = $this->input->post('id');
+		$data = [
+			'jenis_motor' => $this->input->post('jenis_motor'),
+			'no_plat' => $this->input->post('no_plat'),
+			'tgl_pjk' => $this->input->post('tgl_pjk'),
+		];
+		$update = $this->motor_model->update($id, $data);
+		if ($update == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
+
+	function deleteMotor()
+	{
+		$id = $this->input->post('id');
+		$delete = $this->motor_model->delete($id);
+		if ($delete == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
 }
 
 
