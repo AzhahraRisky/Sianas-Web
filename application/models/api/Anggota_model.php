@@ -32,4 +32,21 @@ class Anggota_model extends CI_Model
 		$this->db->where('no_anggota', $id);
 		return $this->db->get()->row_array();
 	}
+
+	function getAllAnggota()
+	{
+		$this->db->select('*');
+		$this->db->from('anggota');
+		return $this->db->get()->result();
+	}
+
+	function insert($data)
+	{
+		$insert = $this->db->insert('anggota', $data);
+		if ($insert) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

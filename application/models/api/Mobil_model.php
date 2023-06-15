@@ -58,6 +58,37 @@ class Mobil_model extends CI_Model
 			return false;
 		}
 	}
+
+	function insert($data)
+	{
+
+		$insert = $this->db->insert('mobil', $data);
+		if ($insert) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+	function getAllMObil()
+	{
+		$this->db->select('*');
+		$this->db->from('mobil');
+		return $this->db->get()->result();
+	}
+	function delete($id)
+	{
+
+		$this->db->where('no_mobil', $id);
+		$delete = $this->db->delete('mobil');
+
+		if ($delete) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
 
 /* End of file Mobil_model.php */

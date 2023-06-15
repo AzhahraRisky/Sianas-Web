@@ -115,7 +115,6 @@ class Admin extends CI_Controller
 		$data = $this->riwayat_model->getRiwayatById($id);
 		$this->load->helper('download');
 		$file = './assets/data/surat/' . $data['surat'];
-		// echo $file;
 		force_download($file, NULL);
 	}
 
@@ -127,6 +126,136 @@ class Admin extends CI_Controller
 		$file = './assets/data/bukti/' . $data['bukti'];
 		// echo $file;
 		force_download($file, NULL);
+	}
+
+	function decision()
+	{
+		$id = $this->input->post('id');
+		$data = [
+			'konfirmasi' => $this->input->post('konfirmasi')
+		];
+		$update = $this->riwayat_model->update($id, $data);
+
+		if ($update == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
+
+	function getAllAnggota()
+	{
+		echo json_encode($this->anggota_model->getAllAnggota());
+	}
+
+	function insertAnggota()
+	{
+		$data = [
+			'subbag' => $this->input->post('subbag'),
+			'nama' => $this->input->post('nama'),
+			'nip' => $this->input->post('nip'),
+			'jabatan' => $this->input->post('jabatan'),
+			'no_hp' => $this->input->post('no_hp'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password'),
+			'role' => 2,
+			'foto' => 'default.png'
+
+		];
+		$insert = $this->anggota_model->insert($data);
+		if ($insert == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 4044
+			];
+			echo json_encode($response);
+		}
+	}
+
+	function getAllSopir()
+	{
+		echo json_encode($this->mobil_model->getAllMObil());
+	}
+
+
+	function insertSopir()
+	{
+		$data = [
+			'nama' => $this->input->post('nama'),
+			'jenis_mobil' => $this->input->post('jenis_mobil'),
+			'no_plat' => $this->input->post('no_plat'),
+			'no_hp' => $this->input->post('no_hp'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password'),
+			'role' => 3
+		];
+
+		$insert = $this->mobil_model->insert($data);
+
+		if ($insert == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
+
+	function updateSopir()
+	{
+		$id = $this->input->post('id');
+		$data = [
+			'nama' => $this->input->post('nama'),
+			'jenis_mobil' => $this->input->post('jenis_mobil'),
+			'no_plat' => $this->input->post('no_plat'),
+			'no_hp' => $this->input->post('no_hp'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password')
+		];
+
+		$update = $this->mobil_model->update($id, $data);
+
+		if ($update == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
+	function deleteSopir()
+	{
+		$id = $this->input->post('id');
+		$delete = $this->mobil_model->delete($id);
+		if ($delete == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
 	}
 }
 
