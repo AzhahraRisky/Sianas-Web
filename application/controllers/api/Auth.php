@@ -10,6 +10,7 @@ class Auth extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('api/Auth_model', 'auth_model');
+		$this->load->model('api/mobil_model', 'mobil_model');
 	}
 
 	public function login()
@@ -20,6 +21,7 @@ class Auth extends CI_Controller
 		// validasi 
 		$validateAnggota = $this->auth_model->validateUsername($username, 'anggota');
 		$validateAdmin  = $this->auth_model->validateUsername($username, 'admin');
+		$validateSopir = $this->mobil_model->validateSopir($username);
 		if ($validateAnggota != null) {
 			if ($validateAnggota['password'] == $password) {
 				$response = [
@@ -58,6 +60,23 @@ class Auth extends CI_Controller
 					'message' => 'Password Salah'
 				];
 
+				echo json_encode($response);
+			}
+		} else if ($validateSopir != null) {
+			if ($validateSopir['password'] == $password) {
+				$response = [
+					'code' => 200,
+					'status' => true,
+					'user_id' => $validateSopir['no_mobil'],
+					'nama' => $validateSopir['nama'],
+					'role' => $validateSopir['role']
+				];
+				echo json_encode($response);
+			} else {
+				$response = [
+					'code' => 404,
+					'message' => 'Password salah'
+				];
 				echo json_encode($response);
 			}
 		} else {

@@ -14,6 +14,7 @@ class Admin extends CI_Controller
 		$this->load->model('api/motor_model');
 		$this->load->model('api/riwayat_model');
 		$this->load->model('api/anggota_model');
+		$this->load->model('api/admin_model');
 	}
 
 	function getMobilById()
@@ -246,6 +247,54 @@ class Admin extends CI_Controller
 		$id = $this->input->post('id');
 		$delete = $this->mobil_model->delete($id);
 		if ($delete == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
+
+
+	function deleteAnggota()
+	{
+		$id = $this->input->post('id');
+		$delete = $this->anggota_model->delete($id);
+		if ($delete == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
+
+	function getMyProfile()
+	{
+		$id = $this->input->get('id');
+		echo json_encode($this->admin_model->getProfile($id));
+	}
+
+	function updateMyProfile()
+	{
+		$id = $this->input->post('id');
+		$data = [
+			'nama' => $this->input->post('nama'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password'),
+
+		];
+
+		$update = $this->admin_model->update($id, $data);
+		if ($update == true) {
 			$response = [
 				'code' => 200
 			];

@@ -24,6 +24,15 @@ class Mobil_model extends CI_Model
 		parent::__construct();
 	}
 
+	function validateSopir($username)
+	{
+
+		$this->db->select('*');
+		$this->db->from('mobil');
+		$this->db->where('username', $username);
+		return $this->db->get()->row_array();
+	}
+
 	function getMobilByStatus($status)
 	{
 

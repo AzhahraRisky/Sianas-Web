@@ -49,4 +49,17 @@ class Anggota_model extends CI_Model
 			return false;
 		}
 	}
+
+	function delete($id)
+	{
+
+		$this->db->where('no_anggota', $id);
+		$delete = $this->db->delete('anggota');
+
+		if ($delete) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
