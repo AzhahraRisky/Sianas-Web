@@ -23,13 +23,13 @@ class Admin extends CI_Controller
 	}
 
 
-	function downloadLaporan($id, $dateStart, $dateEnd)
+	function downloadLaporan($dateStart, $dateEnd)
 	{
-		$data['riwayat'] = $this->riwayat_model->getFilterRiwayat($id, $dateStart, $dateEnd);
+		$data['riwayat'] = $this->riwayat_model->getFilterKeseluruhan($dateStart, $dateEnd);
 		$data['tgl_awal'] = $dateStart;
 		$data['tgl_akhir'] = $dateEnd;
 		$this->load->library('pdflib');
-		$this->pdflib->setFileName('Laporan_peminjaman.pdf');
+		$this->pdflib->setFileName('Rekap_peminjaman_' . $dateStart . '-' . $dateEnd . ".pdf");
 		$this->pdflib->setPaper('A4', 'landscape');
 		$this->pdflib->loadView('v_laporan', $data);
 	}
@@ -101,6 +101,32 @@ class Admin extends CI_Controller
 			];
 			echo json_encode($response);
 		}
+	}
+
+	function getPengajuanByStatus()
+	{
+		$status = $this->input->get('status');
+		echo json_encode($this->riwayat_model->getRiwayatByStatus($status));
+	}
+
+	function downloadSuratPeminjaman($id)
+	{
+
+		$data = $this->riwayat_model->getRiwayatById($id);
+		$this->load->helper('download');
+		$file = './assets/data/surat/' . $data['surat'];
+		// echo $file;
+		force_download($file, NULL);
+	}
+
+	function downloadBukti($id)
+	{
+
+		$data = $this->riwayat_model->getRiwayatById($id);
+		$this->load->helper('download');
+		$file = './assets/data/bukti/' . $data['bukti'];
+		// echo $file;
+		force_download($file, NULL);
 	}
 }
 
