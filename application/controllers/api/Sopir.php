@@ -89,6 +89,36 @@ class Sopir extends CI_Controller
 		$id = $this->input->get('id');
 		echo json_encode($this->riwayat_model->getHistorySopir($id));
 	}
+
+	function getProfile()
+	{
+		$id = $this->input->get('id');
+		echo json_encode($this->mobil_model->getMobilById($id));
+	}
+
+	function updateProfile()
+	{
+		$id = $this->input->post('id');
+		$data = [
+			'nama' => $this->input->post('nama'),
+			'no_hp' => $this->input->post('no_hp'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password')
+		];
+
+		$update = $this->mobil_model->update($id, $data);
+		if ($update == true) {
+			$response = [
+				'code' => 200
+			];
+			echo json_encode($response);
+		} else {
+			$response = [
+				'code' => 404
+			];
+			echo json_encode($response);
+		}
+	}
 }
 
 
