@@ -119,6 +119,67 @@ class Sopir extends CI_Controller
 			echo json_encode($response);
 		}
 	}
+
+	function setLocation()
+	{
+		$id = $this->input->post('id');
+		$lat = $this->input->post('lat');
+		$lng = $this->input->post('lng');
+		$jenis = $this->input->post('jenis');
+
+		if ($jenis == 'location_1') {
+			$data = [
+				'lat_1' => $lat,
+				'lng_1' => $lng
+			];
+			$update = $this->riwayat_model->update($id, $data);
+			if ($update == true) {
+				$response = [
+					'code' => 200
+				];
+				echo json_encode($response);
+			} else {
+				$response = [
+					'code' => 404
+				];
+				echo json_encode($response);
+			}
+		} else if ($jenis == 'location_2') {
+			$data = [
+				'lat_2' => $lat,
+				'lng_2' => $lng
+			];
+			$update = $this->riwayat_model->update($id, $data);
+			if ($update == true) {
+				$response = [
+					'code' => 200
+				];
+				echo json_encode($response);
+			} else {
+				$response = [
+					'code' => 404
+				];
+				echo json_encode($response);
+			}
+		} else if ($jenis == 'location_3') {
+			$data = [
+				'lat_3' => $lat,
+				'lng_3' => $lng
+			];
+			$update = $this->riwayat_model->update($id, $data);
+			if ($update == true) {
+				$response = [
+					'code' => 200
+				];
+				echo json_encode($response);
+			} else {
+				$response = [
+					'code' => 404
+				];
+				echo json_encode($response);
+			}
+		}
+	}
 }
 
 
